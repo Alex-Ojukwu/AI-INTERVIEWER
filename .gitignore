@@ -1,0 +1,79 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Environment variables
+.env
+.env.local
+*.env
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+tmp/
+temp/
+*.tmp
+
+# Node.js (Frontend)
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# Python Virtual Env
+backend/venv/
+backend/env/
+
+# Temporary audio files
+backend/static/temp_audio/*
+!backend/static/temp_audio/.gitkeep
+
+# Models (large files)
+backend/models/*.tflite
+backend/models/*.h5
+backend/models/*.pb
+
+# Cloud config (contains API keys)
+cloud/*.json
+!cloud/*.example.json
+
+# Documentation builds
+docs/*.pdf
+docs/*.docx
+
+# Test coverage
+htmlcov/
+.coverage
+.pytest_cache/
+
+# Build artifacts
+*.pyc
+*.pyo
+*.pyd
+
+# Distribution
+*.tar.gz
+*.whl

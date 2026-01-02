@@ -1,0 +1,14 @@
+{
+  "api_key": "YOUR_DID_API_KEY_HERE",
+  "api_url": "https://api.d-id.com",
+  "default_presenter": "amy",
+  "default_voice": "en-US-JennyNeural",
+  "config": {
+    "fluent": true,
+    "pad_audio": 0,
+    "driver_expressions": {
+      "expressions": [],
+      "transition_frames": 0
+    }
+  }
+}
