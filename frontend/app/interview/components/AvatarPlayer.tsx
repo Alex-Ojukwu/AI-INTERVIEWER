@@ -21,8 +21,8 @@ export default function AvatarPlayer({ questionText }: AvatarPlayerProps) {
     // Only generate if question changed and not empty
     if (questionText && questionText !== lastQuestionRef.current) {
       lastQuestionRef.current = questionText;
-      // Use TTS with orb directly (skip D-ID until credits available)
-      speakWithTTS(questionText);
+      // Use D-ID avatar generation
+      generateAvatarVideo(questionText);
     }
   }, [questionText]);
 
@@ -128,9 +128,8 @@ export default function AvatarPlayer({ questionText }: AvatarPlayerProps) {
   };
 
   const handleVideoEnd = () => {
-    // When speaking video ends, return to idle loop
-    setIsIdle(true);
-    setVideoUrl(null);
+    // Keep the avatar visible after video ends (show last frame)
+    // Don't return to idle - avatar stays on screen
   };
 
   // Cleanup speech on unmount
@@ -184,8 +183,8 @@ export default function AvatarPlayer({ questionText }: AvatarPlayerProps) {
         </div>
       )}
 
-      {/* Speaking video - plays when asking question */}
-      {videoUrl && !isIdle && (
+      {/* Speaking video - plays when asking question and stays visible */}
+      {videoUrl && (
         <video
           key="speaking"
           ref={videoRef}
