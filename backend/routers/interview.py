@@ -8,6 +8,7 @@ import json
 import asyncio
 
 from core.interview_flow import InterviewFlow
+from core.database import get_sessions_collection
 from schemas.interview import InterviewStart, InterviewResponse, QuestionRequest
 
 router = APIRouter()
@@ -77,13 +78,16 @@ async def submit_answer(session_id: str, request: QuestionRequest):
 
         # Check if interview is complete
         if interview.is_complete():
+            summary = await interview.generate_summary()
+            await get_sessions_collection().insert_one(summary)
+            del active_sessions[session_id]
             return InterviewResponse(
                 session_id=session_id,
                 question=None,
                 question_number=interview.current_question_number,
                 total_questions=interview.total_questions,
                 status="completed",
-                summary=await interview.generate_summary()
+                summary=summary
             )
 
         # Get next question
@@ -118,12 +122,23 @@ async def get_interview_status(session_id: str):
     }
 
 
+@router.post("/emotion/{session_id}")
+async def store_emotion(session_id: str, emotion_data: Dict):
+    """Store an emotion data point against an active interview session"""
+    if session_id not in active_sessions:
+        raise HTTPException(status_code=404, detail="Interview session not found")
+
+    active_sessions[session_id].add_emotion_data(emotion_data)
+    return {"status": "ok"}
+
+
 @router.delete("/end/{session_id}")
 async def end_interview(session_id: str):
     """End and cleanup an interview session"""
     if session_id in active_sessions:
         interview = active_sessions[session_id]
         summary = await interview.generate_summary()
+        await get_sessions_collection().insert_one(summary)
         del active_sessions[session_id]
 
         return {

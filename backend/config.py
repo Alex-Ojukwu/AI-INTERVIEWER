@@ -43,6 +43,10 @@ class Settings(BaseSettings):
     EMOTION_MODEL_PATH: Path = Path("models/emotions_model.tflite")
     EMOTION_CONFIDENCE_THRESHOLD: float = 0.6
 
+    # MongoDB
+    MONGODB_URI: str = "mongodb://localhost:27017"
+    MONGODB_DB_NAME: str = "ai_interviewer"
+
     # Interview Settings
     MAX_INTERVIEW_DURATION_MINUTES: int = 30
     QUESTION_TIMEOUT_SECONDS: int = 120

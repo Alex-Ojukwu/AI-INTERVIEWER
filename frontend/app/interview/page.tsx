@@ -7,7 +7,7 @@ import AvatarPlayer from "./components/AvatarPlayer";
 import ExpressionMeter from "./components/ExpressionMeter";
 import ChatBox from "./components/ChatBox";
 import Loader from "./components/Loader";
-import { startInterview, submitAnswer } from "@/lib/api";
+import { startInterview, submitAnswer, storeEmotionData } from "@/lib/api";
 import "./styles.css";
 
 export default function InterviewPage() {
@@ -65,6 +65,9 @@ export default function InterviewPage() {
 
   const handleEmotionUpdate = (emotions: any) => {
     setEmotionData(emotions);
+    if (sessionId) {
+      storeEmotionData(sessionId, emotions);
+    }
   };
 
   return (

@@ -58,7 +58,7 @@ class WhisperTranscriber:
             # Calculate confidence (if segments available)
             if result["segments"]:
                 avg_confidence = sum(
-                    seg.get("avg_logprob", 0) for seg in result["segments"]
+                    getattr(seg, "avg_logprob", 0) for seg in result["segments"]
                 ) / len(result["segments"])
                 result["confidence"] = avg_confidence
             else:

@@ -13,6 +13,9 @@ opencv-python>=4.8.0
 numpy>=1.24.0
 deepface>=0.0.79
 
+# Database
+motor>=3.3.0
+
 # Data Validation
 pydantic>=2.5.0
 pydantic-settings>=2.1.0

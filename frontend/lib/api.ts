@@ -116,6 +116,17 @@ export async function transcribeAudio(audioData: FormData): Promise<any> {
 }
 
 /**
+ * Store emotion data point against an active interview session
+ */
+export async function storeEmotionData(sessionId: string, emotionData: any): Promise<void> {
+  await fetch(`${API_BASE_URL}/api/interview/emotion/${sessionId}`, {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(emotionData),
+  });
+}
+
+/**
  * Analyze emotion from base64 image
  */
 export async function analyzeEmotion(imageData: string): Promise<any> {
